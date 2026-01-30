@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ebrain.admin.mapper.AnswerMapper">
+
+    <resultMap id="AnswerResultMap" type="AnswerDto">
+        <id property="answerId" column="answer_id"/>
+        <result property="inquiryBoardId" column="inquiry_board_id"/>
+        <result property="content" column="content"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="editedAt" column="edited_at"/>
+    </resultMap>
+
+    <select id="findByInquiryBoardId" resultMap="AnswerResultMap">
+        SELECT * FROM tb_answer
+        WHERE inquiry_board_id = #{inquiryBoardId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="answerId">
+        INSERT INTO tb_answer (inquiry_board_id, content, created_at)
+        VALUES (#{inquiryBoardId}, #{content}, NOW())
+    </insert>
+
+    <update id="update">
+        UPDATE tb_answer
+        SET content = #{content}, edited_at = NOW()
+        WHERE answer_id = #{answerId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM tb_answer WHERE answer_id = #{answerId}
+    </delete>
+</mapper>

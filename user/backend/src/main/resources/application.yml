@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: user-backend
+
+  # 데이터소스 설정
+  datasource:
+    url: jdbc:mysql://potal.cd2ig8m2ibfx.ap-northeast-2.rds.amazonaws.com:3306/portal?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    username: admin
+    password: ${DB_PASSWORD:your_password_here}  # 환경 변수 또는 기본값
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # JPA 설정
+  jpa:
+    hibernate:
+      ddl-auto: validate  # 운영: validate, 개발: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  # 파일 업로드 설정
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2MB
+      max-request-size: 10MB
+      file-size-threshold: 1MB
+
+# MyBatis 설정
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.ebrain.user.dto
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+
+# JWT 설정
+jwt:
+  secret: ebrain-portal-jwt-secret-key-2024-change-this-in-production
+  expiration: 1000000000  # ~11.5일 (밀리초)
+
+# 서버 설정
+server:
+  port: 8081
+  servlet:
+    context-path: /
+
+# 파일 저장 경로
+file:
+  upload:
+    base-path: ${FILE_UPLOAD_PATH:/Users/user/upload}
+    free: ${file.upload.base-path}/free
+    gallery: ${file.upload.base-path}/gallery
+    thumbnail: ${file.upload.base-path}/thumbnail
+
+# 로깅 설정
+logging:
+  level:
+    com.ebrain.user: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

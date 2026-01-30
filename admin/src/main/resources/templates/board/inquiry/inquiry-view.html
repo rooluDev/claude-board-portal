@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의게시판 상세 - eBrain Portal Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <div th:replace="~{components/nav :: nav}"></div>
+
+    <div class="container">
+        <!-- 문의 내용 -->
+        <div class="card mb-3">
+            <div class="card-header bg-light">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span th:if="${inquiry.isSecret}" class="badge bg-warning text-dark">
+                            <i class="bi bi-lock-fill"></i> 비밀글
+                        </span>
+                    </div>
+                    <small class="text-muted">조회수: <span th:text="${inquiry.views}"></span></small>
+                </div>
+                <h4 class="mt-2 mb-0" th:text="${inquiry.title}"></h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-3 text-muted">
+                    <small>
+                        작성자: <span th:text="${inquiry.authorName}"></span> |
+                        작성일: <span th:text="${#temporals.format(inquiry.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                    </small>
+                </div>
+                <hr>
+                <div class="content" style="min-height: 200px; white-space: pre-wrap;" th:text="${inquiry.content}"></div>
+            </div>
+        </div>
+
+        <!-- 답변 영역 -->
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-chat-dots"></i> 관리자 답변</h5>
+            </div>
+            <div class="card-body">
+                <div th:if="${inquiry.answer != null}">
+                    <!-- 기존 답변 표시 -->
+                    <div class="alert alert-info">
+                        <div class="mb-2">
+                            <strong>답변 내용:</strong>
+                            <small class="text-muted float-end">
+                                <span th:text="${#temporals.format(inquiry.answer.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                            </small>
+                        </div>
+                        <div style="white-space: pre-wrap;" th:text="${inquiry.answer.content}"></div>
+                        <div class="mt-3">
+                            <button class="btn btn-sm btn-warning" onclick="editAnswer()">수정</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteAnswer()">삭제</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${inquiry.answer == null}">
+                    <!-- 답변 작성 폼 -->
+                    <form id="answerForm">
+                        <div class="mb-3">
+                            <label class="form-label">답변 내용</label>
+                            <textarea class="form-control" id="answerContent" rows="5"
+                                      placeholder="답변을 입력하세요" required></textarea>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="submitAnswer()">
+                            답변 등록
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a th:href="@{/boards/inquiry}" class="btn btn-secondary">목록</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:inline="javascript">
+        const boardId = /*[[${inquiry.boardId}]]*/ 0;
+        const answerId = /*[[${inquiry.answer?.answerId}]]*/ null;
+
+        function submitAnswer() {
+            const content = $('#answerContent').val();
+            if (!content.trim()) {
+                alert('답변 내용을 입력하세요.');
+                return;
+            }
+
+            $.ajax({
+                url: `/boards/inquiry/${boardId}/answers`,
+                method: 'POST',
+                data: { content: content },
+                success: function(result) {
+                    alert(result.message);
+                    location.reload();
+                },
+                error: function() {
+                    alert('답변 등록에 실패했습니다.');
+                }
+            });
+        }
+
+        function editAnswer() {
+            const newContent = prompt('새로운 답변 내용을 입력하세요:');
+            if (!newContent || !newContent.trim()) return;
+
+            $.ajax({
+                url: `/boards/inquiry/answers/${answerId}`,
+                method: 'PUT',
+                data: { content: newContent },
+                success: function(result) {
+                    alert(result.message);
+                    location.reload();
+                },
+                error: function() {
+                    alert('답변 수정에 실패했습니다.');
+                }
+            });
+        }
+
+        function deleteAnswer() {
+            if (!confirm('답변을 삭제하시겠습니까?')) return;
+
+            $.ajax({
+                url: `/boards/inquiry/answers/${answerId}`,
+                method: 'DELETE',
+                success: function(result) {
+                    alert(result.message);
+                    location.reload();
+                },
+                error: function() {
+                    alert('답변 삭제에 실패했습니다.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

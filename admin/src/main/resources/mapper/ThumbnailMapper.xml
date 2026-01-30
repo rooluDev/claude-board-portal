@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ebrain.admin.mapper.ThumbnailMapper">
+
+    <resultMap id="ThumbnailResultMap" type="ThumbnailDto">
+        <id property="thumbnailId" column="thumbnail_id"/>
+        <result property="fileId" column="file_id"/>
+        <result property="physicalName" column="physical_name"/>
+        <result property="filePath" column="file_path"/>
+        <result property="extension" column="extension"/>
+        <result property="size" column="size"/>
+    </resultMap>
+
+    <select id="findByFileId" resultMap="ThumbnailResultMap">
+        SELECT * FROM tb_thumbnail WHERE file_id = #{fileId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="thumbnailId">
+        INSERT INTO tb_thumbnail (file_id, physical_name, file_path, extension, size)
+        VALUES (#{fileId}, #{physicalName}, #{filePath}, #{extension}, #{size})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM tb_thumbnail WHERE thumbnail_id = #{thumbnailId}
+    </delete>
+</mapper>

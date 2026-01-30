@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${isEditMode} ? '자유게시판 수정' : '자유게시판 작성'">자유게시판 작성</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="~{components/nav :: nav}"></div>
+
+    <div class="container">
+        <h2 class="mb-4" th:text="${isEditMode} ? '자유게시판 수정' : '자유게시판 작성'"></h2>
+
+        <div th:if="${errorMessage}" class="alert alert-danger">
+            <span th:text="${errorMessage}"></span>
+        </div>
+
+        <form method="post" th:action="${isEditMode} ? @{/boards/free/{id}(id=${board.boardId})} : @{/boards/free}"
+              th:object="${board}" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">카테고리 <span class="text-danger">*</span></label>
+                        <select class="form-select" th:field="*{categoryId}" required>
+                            <option value="">선택하세요</option>
+                            <option th:each="cat : ${categories}"
+                                    th:value="${cat.categoryId}"
+                                    th:text="${cat.categoryName}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">제목 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" th:field="*{title}"
+                               placeholder="제목을 입력하세요 (1-99자)" maxlength="99" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">내용 <span class="text-danger">*</span></label>
+                        <textarea class="form-control" th:field="*{content}" rows="15"
+                                  placeholder="내용을 입력하세요 (1-3999자)" maxlength="3999" required></textarea>
+                    </div>
+
+                    <!-- 기존 파일 목록 (수정 시) -->
+                    <div th:if="${isEditMode and !#lists.isEmpty(board.files)}" class="mb-3">
+                        <label class="form-label">기존 첨부파일</label>
+                        <div class="list-group">
+                            <div class="list-group-item" th:each="file : ${board.files}">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="deleteFileIds"
+                                           th:value="${file.fileId}" th:id="'file-' + ${file.fileId}">
+                                    <label class="form-check-label" th:for="'file-' + ${file.fileId}">
+                                        <span th:text="${file.originalName}"></span>
+                                        <small class="text-muted ms-2">
+                                            (<span th:text="${#numbers.formatDecimal(file.size / 1024.0, 1, 2)}"></span> KB)
+                                        </small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <small class="text-muted">삭제할 파일을 선택하세요</small>
+                    </div>
+
+                    <!-- 파일 첨부 -->
+                    <div class="mb-3">
+                        <label class="form-label">파일 첨부</label>
+                        <input type="file" class="form-control" name="files" multiple accept=".jpg,.jpeg,.gif,.png,.zip">
+                        <small class="text-muted">
+                            최대 5개, 각 파일 최대 2MB (jpg, jpeg, gif, png, zip)
+                        </small>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <a th:href="@{/boards/free}" class="btn btn-secondary">취소</a>
+                        <button type="submit" class="btn btn-primary">
+                            <span th:text="${isEditMode} ? '수정' : '등록'"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

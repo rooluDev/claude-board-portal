@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ebrain.admin.mapper.FileMapper">
+
+    <resultMap id="FileResultMap" type="FileDto">
+        <id property="fileId" column="file_id"/>
+        <result property="boardType" column="board_type"/>
+        <result property="boardId" column="board_id"/>
+        <result property="originalName" column="original_name"/>
+        <result property="physicalName" column="physical_name"/>
+        <result property="filePath" column="file_path"/>
+        <result property="extension" column="extension"/>
+        <result property="size" column="size"/>
+        <result property="uploadDate" column="upload_date"/>
+    </resultMap>
+
+    <select id="findByBoard" resultMap="FileResultMap">
+        SELECT * FROM tb_file
+        WHERE board_type = #{boardType} AND board_id = #{boardId}
+        ORDER BY file_id ASC
+    </select>
+
+    <select id="findById" resultMap="FileResultMap">
+        SELECT * FROM tb_file WHERE file_id = #{fileId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="fileId">
+        INSERT INTO tb_file (board_type, board_id, original_name, physical_name,
+                             file_path, extension, size, upload_date)
+        VALUES (#{boardType}, #{boardId}, #{originalName}, #{physicalName},
+                #{filePath}, #{extension}, #{size}, NOW())
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM tb_file WHERE file_id = #{fileId}
+    </delete>
+
+    <delete id="deleteByBoard">
+        DELETE FROM tb_file WHERE board_type = #{boardType} AND board_id = #{boardId}
+    </delete>
+</mapper>
