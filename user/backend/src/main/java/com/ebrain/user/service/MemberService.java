@@ -30,13 +30,13 @@ public class MemberService {
         PasswordUtil.validatePassword(request.getPassword(), request.getMemberId());
 
         // 비밀번호 해싱
-        String hashedPassword = PasswordUtil.hashWithMD5(request.getPassword());
+        String hashedPassword = PasswordUtil.hashWithSHA256(request.getPassword());
 
         // 회원 생성
         Member member = new Member();
         member.setMemberId(request.getMemberId());
         member.setPassword(hashedPassword);
-        member.setName(request.getMemberName());
+        member.setMemberName(request.getMemberName());
 
         memberRepository.save(member);
     }
@@ -52,7 +52,7 @@ public class MemberService {
      * 로그인 (인증)
      */
     public Member authenticate(String memberId, String password) {
-        String hashedPassword = PasswordUtil.hashWithMD5(password);
+        String hashedPassword = PasswordUtil.hashWithSHA256(password);
 
         return memberRepository.findByMemberIdAndPassword(memberId, hashedPassword)
                 .orElse(null);

@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/board/free")
+@RequestMapping({"/api/board/free", "/api/boards/free"})
 @RequiredArgsConstructor
 public class FreeBoardController {
 
@@ -47,7 +47,7 @@ public class FreeBoardController {
      */
     @PostMapping
     public ResponseEntity<Map<String, Long>> create(
-            @Valid @RequestPart FreeBoardRequest request,
+            @Valid @ModelAttribute FreeBoardRequest request,
             @RequestPart(required = false) MultipartFile[] files,
             @RequestAttribute(required = false) String memberId) throws IOException {
 
@@ -69,7 +69,7 @@ public class FreeBoardController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(
             @PathVariable Long id,
-            @Valid @RequestPart FreeBoardRequest request,
+            @Valid @ModelAttribute FreeBoardRequest request,
             @RequestPart(required = false) MultipartFile[] files,
             @RequestAttribute(required = false) String memberId) throws IOException {
 

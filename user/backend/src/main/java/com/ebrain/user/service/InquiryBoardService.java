@@ -64,7 +64,7 @@ public class InquiryBoardService {
         InquiryBoardDto dto = toDto(board);
 
         // 답변 조회
-        answerRepository.findByInquiryBoardId(boardId)
+        answerRepository.findByBoardId(boardId)
                 .ifPresent(answer -> {
                     AnswerDto answerDto = new AnswerDto();
                     answerDto.setAnswerId(answer.getAnswerId());

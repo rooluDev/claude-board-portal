@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/board/inquiry")
+@RequestMapping({"/api/board/inquiry", "/api/boards/inquiry"})
 @RequiredArgsConstructor
 public class InquiryBoardController {
 

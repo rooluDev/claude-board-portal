@@ -25,7 +25,7 @@ public class Comment {
     @Column(name = "author_type", nullable = false, length = 10)
     private String authorType;
 
-    @Column(name = "author_id", nullable = false)
+    @Column(name = "author_id", nullable = false, length = 11)
     private String authorId;
 
     @Column(nullable = false, length = 4000)

@@ -17,10 +17,10 @@ public class NoticeBoard {
     private Long boardId;
 
     @Column(name = "category_id", nullable = false)
-    private Integer categoryId;
+    private Long categoryId;
 
-    @Column(name = "author_id", nullable = false)
-    private Long authorId;
+    @Column(name = "author_id", nullable = false, length = 11)
+    private String authorId;
 
     @Column(nullable = false, length = 99)
     private String title;
@@ -29,7 +29,7 @@ public class NoticeBoard {
     private String content;
 
     @Column(nullable = false)
-    private Integer views = 0;
+    private Long views = 0L;
 
     @Column(name = "is_fixed", nullable = false)
     private Boolean isFixed = false;

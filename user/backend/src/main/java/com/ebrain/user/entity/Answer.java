@@ -16,10 +16,13 @@ public class Answer {
     @Column(name = "answer_id")
     private Long answerId;
 
-    @Column(name = "inquiry_board_id", nullable = false)
-    private Long inquiryBoardId;
+    @Column(name = "board_id", nullable = false)
+    private Long boardId;
 
-    @Column(nullable = false, length = 4000)
+    @Column(name = "author_id", nullable = false, length = 11)
+    private String authorId;
+
+    @Column(nullable = false, length = 3999)
     private String content;
 
     @Column(name = "created_at", nullable = false)

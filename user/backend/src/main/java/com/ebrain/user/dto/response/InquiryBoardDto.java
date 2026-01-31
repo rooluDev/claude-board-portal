@@ -10,7 +10,7 @@ public class InquiryBoardDto {
     private String authorName;
     private String title;
     private String content;
-    private Integer views;
+    private Long views;
     private Boolean isSecret;
     private LocalDateTime createdAt;
     private LocalDateTime editedAt;

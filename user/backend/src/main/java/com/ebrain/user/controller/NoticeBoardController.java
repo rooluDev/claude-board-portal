@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/boards/notice")
+@RequestMapping({"/api/board/notice", "/api/boards/notice"})
 @RequiredArgsConstructor
 public class NoticeBoardController {
 

@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/board/gallery")
+@RequestMapping({"/api/board/gallery", "/api/boards/gallery"})
 @RequiredArgsConstructor
 public class GalleryBoardController {
 
@@ -47,7 +47,7 @@ public class GalleryBoardController {
      */
     @PostMapping
     public ResponseEntity<Map<String, Long>> create(
-            @Valid @RequestPart GalleryBoardRequest request,
+            @Valid @ModelAttribute GalleryBoardRequest request,
             @RequestPart(required = true) MultipartFile[] files,
             @RequestAttribute(required = false) String memberId) throws IOException {
 
@@ -69,7 +69,7 @@ public class GalleryBoardController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(
             @PathVariable Long id,
-            @Valid @RequestPart GalleryBoardRequest request,
+            @Valid @ModelAttribute GalleryBoardRequest request,
             @RequestPart(required = false) MultipartFile[] files,
             @RequestAttribute(required = false) String memberId) throws IOException {
 

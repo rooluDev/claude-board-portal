@@ -16,7 +16,7 @@ public class InquiryBoard {
     @Column(name = "board_id")
     private Long boardId;
 
-    @Column(name = "author_id", nullable = false)
+    @Column(name = "author_id", nullable = false, length = 11)
     private String authorId;  // Member의 memberId
 
     @Column(nullable = false, length = 99)
@@ -26,7 +26,7 @@ public class InquiryBoard {
     private String content;
 
     @Column(nullable = false)
-    private Integer views = 0;
+    private Long views = 0L;
 
     @Column(name = "is_secret", nullable = false)
     private Boolean isSecret = false;

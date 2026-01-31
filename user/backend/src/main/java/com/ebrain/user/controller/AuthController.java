@@ -56,7 +56,6 @@ public class AuthController {
      */
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
-
         Member member = memberService.authenticate(
                 request.getMemberId(),
                 request.getPassword()
@@ -67,12 +66,12 @@ public class AuthController {
         }
 
         // JWT 토큰 생성
-        String token = jwtUtil.generateToken(member.getMemberId(), member.getName());
+        String token = jwtUtil.generateToken(member.getMemberId(), member.getMemberName());
 
         AuthResponse response = new AuthResponse(
                 token,
                 member.getMemberId(),
-                member.getName()
+                member.getMemberName()
         );
 
         return ResponseEntity.ok(response);

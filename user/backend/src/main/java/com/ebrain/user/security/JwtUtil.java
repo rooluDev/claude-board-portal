@@ -3,9 +3,12 @@ package com.ebrain.user.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
@@ -18,6 +21,14 @@ public class JwtUtil {
     private Long expiration;
 
     /**
+     * Secret 문자열을 SecretKey로 변환
+     */
+    private SecretKey getSigningKey() {
+        byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    /**
      * JWT 토큰 생성
      */
     public String generateToken(String memberId, String memberName) {
@@ -26,7 +37,7 @@ public class JwtUtil {
                 .claim("name", memberName)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(SignatureAlgorithm.HS256, secret)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -49,7 +60,10 @@ public class JwtUtil {
      */
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token);
             return !isTokenExpired(token);
         } catch (Exception e) {
             return false;
@@ -60,8 +74,9 @@ public class JwtUtil {
      * 모든 클레임 추출
      */
     private Claims extractAllClaims(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
     }

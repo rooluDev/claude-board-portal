@@ -22,13 +22,13 @@ public class File {
     @Column(name = "board_id", nullable = false)
     private Long boardId;
 
-    @Column(name = "original_name", nullable = false)
+    @Column(name = "original_name", nullable = false, length = 100)
     private String originalName;
 
-    @Column(name = "physical_name", nullable = false)
+    @Column(name = "physical_name", nullable = false, length = 100)
     private String physicalName;
 
-    @Column(name = "file_path", nullable = false)
+    @Column(name = "file_path", nullable = false, length = 15)
     private String filePath;
 
     @Column(nullable = false, length = 10)
@@ -37,11 +37,14 @@ public class File {
     @Column(nullable = false)
     private Long size;
 
-    @Column(name = "upload_date")
-    private LocalDateTime uploadDate;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "edited_at")
+    private LocalDateTime editedAt;
 
     @PrePersist
     protected void onCreate() {
-        uploadDate = LocalDateTime.now();
+        createdAt = LocalDateTime.now();
     }
 }

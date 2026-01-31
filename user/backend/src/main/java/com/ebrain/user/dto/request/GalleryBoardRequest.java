@@ -9,7 +9,7 @@ import lombok.Data;
 public class GalleryBoardRequest {
 
     @NotNull(message = "카테고리는 필수입니다.")
-    private Integer categoryId;
+    private Long categoryId;
 
     @NotBlank(message = "제목은 필수입니다.")
     @Size(min = 1, max = 99, message = "제목은 1-99자여야 합니다.")

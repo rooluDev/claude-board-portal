@@ -3,7 +3,7 @@ import api from './api'
 export default {
   async download(fileId, fileName) {
     try {
-      const response = await api.get(`/file/${fileId}`, {
+      const response = await api.get(`/file/${fileId}/download`, {
         responseType: 'blob'
       })
 
@@ -20,5 +20,9 @@ export default {
       console.error('파일 다운로드 실패:', error)
       throw error
     }
+  },
+
+  getImageUrl(fileId) {
+    return `/api/file/${fileId}`
   }
 }

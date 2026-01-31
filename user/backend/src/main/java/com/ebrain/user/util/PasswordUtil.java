@@ -6,11 +6,11 @@ import java.security.NoSuchAlgorithmException;
 public class PasswordUtil {
 
     /**
-     * MD5 해싱 (⚠️ 보안 약함 - BCrypt 권장)
+     * SHA2-256 해싱 (MySQL SHA2(password, 256)와 호환)
      */
-    public static String hashWithMD5(String password) {
+    public static String hashWithSHA256(String password) {
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hash = md.digest(password.getBytes());
 
             StringBuilder hexString = new StringBuilder();
@@ -24,7 +24,7 @@ public class PasswordUtil {
 
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("MD5 해싱 실패", e);
+            throw new RuntimeException("SHA-256 해싱 실패", e);
         }
     }
 

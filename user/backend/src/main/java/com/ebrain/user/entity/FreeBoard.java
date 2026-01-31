@@ -17,12 +17,12 @@ public class FreeBoard {
     private Long boardId;
 
     @Column(name = "category_id", nullable = false)
-    private Integer categoryId;
+    private Long categoryId;
 
     @Column(name = "author_type", nullable = false, length = 10)
     private String authorType;  // "member"
 
-    @Column(name = "author_id", nullable = false)
+    @Column(name = "author_id", nullable = false, length = 11)
     private String authorId;  // Member의 memberId (VARCHAR)
 
     @Column(nullable = false, length = 99)
@@ -32,7 +32,7 @@ public class FreeBoard {
     private String content;
 
     @Column(nullable = false)
-    private Integer views = 0;
+    private Long views = 0L;
 
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = false;
