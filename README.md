@@ -226,18 +226,18 @@ board-portal/
 - **Vuex 4.0.2** - 상태 관리
 - **Axios 1.6.7** - HTTP 클라이언트
 
-### Frontend (Admin)
-- **Thymeleaf** - 서버사이드 템플릿
-- **Bootstrap 5.3.2** - UI 프레임워크
-- **jQuery 3.5.1** - AJAX 처리
-
-### Backend
+### Backend (User)
 - **Spring Boot 3.2.3** - Java 17
 - **Spring Data JPA + MyBatis 3.0.3** - 하이브리드 ORM
 - **JWT (jjwt 0.11.5)** - 사용자 인증
 - **HttpSession** - 관리자 인증
 - **ModelMapper 3.1.1** - DTO 변환
 - **Thumbnailator 0.4.14** - 썸네일 생성
+
+### Frontend (Admin)
+- **Thymeleaf** - 서버사이드 템플릿
+- **Bootstrap 5.3.2** - UI 프레임워크
+- **jQuery 3.5.1** - AJAX 처리
 
 ### Database & Infrastructure
 - **MySQL 8** -
