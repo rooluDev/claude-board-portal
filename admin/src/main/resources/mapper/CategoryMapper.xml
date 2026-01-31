@@ -7,7 +7,8 @@
     <select id="findAll" resultType="CategoryDto">
         SELECT
             category_id,
-            category_name
+            category_name,
+            board_type
         FROM tb_category
         ORDER BY category_id ASC
     </select>

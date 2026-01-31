@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>갤러리 상세 - eBrain Portal Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <div th:replace="~{components/nav :: nav}"></div>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-light">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="badge bg-secondary" th:text="${board.categoryName}"></span>
+                        <span class="badge ms-2" th:classappend="${board.authorType == 'admin'} ? 'bg-primary' : 'bg-info'"
+                              th:text="${board.authorType == 'admin'} ? '관리자' : '회원'"></span>
+                        <span th:if="${board.isDeleted}" class="badge bg-danger ms-2">삭제됨</span>
+                    </div>
+                    <small class="text-muted">
+                        조회수: <span th:text="${board.views}"></span>
+                    </small>
+                </div>
+                <h4 class="mt-2 mb-0" th:text="${board.title}"></h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-3 text-muted">
+                    <small>
+                        작성자: <span th:text="${board.authorName}"></span> |
+                        작성일: <span th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                        <span th:if="${board.editedAt != null}">
+                            | 수정일: <span th:text="${#temporals.format(board.editedAt, 'yyyy-MM-dd HH:mm')}"></span>
+                        </span>
+                    </small>
+                </div>
+                <hr>
+                <div class="content mb-4" style="min-height: 300px; white-space: pre-wrap;" th:text="${board.content}"></div>
+
+                <!-- 첨부 이미지 -->
+                <div th:if="${!#lists.isEmpty(board.files)}" class="mt-4">
+                    <h6><i class="bi bi-image"></i> 첨부 이미지 (<span th:text="${#lists.size(board.files)}"></span>)</h6>
+                    <div class="row g-3">
+                        <div class="col-md-4" th:each="file : ${board.files}">
+                            <div class="card">
+                                <img th:src="@{/files/{fileId}(fileId=${file.fileId})}"
+                                     class="card-img-top"
+                                     th:alt="${file.originalName}"
+                                     style="height: 200px; object-fit: cover;">
+                                <div class="card-body p-2">
+                                    <small class="text-muted d-block text-truncate" th:text="${file.originalName}"></small>
+                                    <small class="text-muted">
+                                        (<span th:text="${#numbers.formatDecimal(file.size / 1024.0, 1, 2)}"></span> KB)
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-light">
+                <div class="d-flex justify-content-between">
+                    <a th:href="@{/boards/gallery}" class="btn btn-secondary">
+                        <i class="bi bi-list"></i> 목록
+                    </a>
+                    <div>
+                        <a th:href="@{/boards/gallery/{id}/edit(id=${board.boardId})}" class="btn btn-primary">
+                            <i class="bi bi-pencil"></i> 수정
+                        </a>
+                        <form method="post" th:action="@{/boards/gallery/{id}/delete(id=${board.boardId})}"
+                              style="display:inline;" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> 삭제
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

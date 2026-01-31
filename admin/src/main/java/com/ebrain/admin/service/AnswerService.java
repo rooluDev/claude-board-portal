@@ -23,9 +23,10 @@ public class AnswerService {
      * 답변 작성
      */
     @Transactional
-    public void createAnswer(Long inquiryBoardId, String content) {
+    public void createAnswer(Long inquiryBoardId, String authorId, String content) {
         AnswerDto dto = new AnswerDto();
-        dto.setInquiryBoardId(inquiryBoardId);
+        dto.setBoardId(inquiryBoardId);
+        dto.setAuthorId(authorId);
         dto.setContent(content);
         answerMapper.insert(dto);
     }

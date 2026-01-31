@@ -58,11 +58,11 @@ public class GalleryBoardController {
 
     @PostMapping
     public String create(@ModelAttribute GalleryBoardDto dto,
-                        @RequestParam(value = "files", required = false) MultipartFile[] files,
+                        @RequestParam(value = "uploadFiles", required = false) MultipartFile[] files,
                         HttpSession session,
                         RedirectAttributes redirectAttributes) throws IOException {
 
-        Long adminId = (Long) session.getAttribute("ADMIN_SESSION_ID");
+        String adminId = (String) session.getAttribute("ADMIN_SESSION_ID");
         dto.setAuthorType("admin");
         dto.setAuthorId(adminId);
 
@@ -84,7 +84,7 @@ public class GalleryBoardController {
     @PostMapping("/{id}")
     public String update(@PathVariable Long id,
                         @ModelAttribute GalleryBoardDto dto,
-                        @RequestParam(value = "files", required = false) MultipartFile[] files,
+                        @RequestParam(value = "uploadFiles", required = false) MultipartFile[] files,
                         @RequestParam(value = "deleteFileIds", required = false) List<Long> deleteFileIds,
                         RedirectAttributes redirectAttributes) throws IOException {
 

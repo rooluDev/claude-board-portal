@@ -7,22 +7,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/boards/notice}" th:classappend="${#request.requestURI.contains('/notice') ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/boards/notice}" th:classappend="${#strings.contains(currentUri, '/notice') ? 'active' : ''}">
                         공지사항
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/boards/free}" th:classappend="${#request.requestURI.contains('/free') ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/boards/free}" th:classappend="${#strings.contains(currentUri, '/free') ? 'active' : ''}">
                         자유게시판
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/boards/gallery}" th:classappend="${#request.requestURI.contains('/gallery') ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/boards/gallery}" th:classappend="${#strings.contains(currentUri, '/gallery') ? 'active' : ''}">
                         갤러리
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/boards/inquiry}" th:classappend="${#request.requestURI.contains('/inquiry') ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/boards/inquiry}" th:classappend="${#strings.contains(currentUri, '/inquiry') ? 'active' : ''}">
                         문의게시판
                     </a>
                 </li>

@@ -8,7 +8,7 @@ public class SearchCondition {
     // 검색 조건
     private LocalDate startDate;
     private LocalDate endDate;
-    private Integer categoryId;
+    private Long categoryId;
     private String searchText;
 
     // 정렬

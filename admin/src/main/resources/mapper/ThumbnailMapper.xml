@@ -7,10 +7,13 @@
     <resultMap id="ThumbnailResultMap" type="ThumbnailDto">
         <id property="thumbnailId" column="thumbnail_id"/>
         <result property="fileId" column="file_id"/>
+        <result property="originalName" column="original_name"/>
         <result property="physicalName" column="physical_name"/>
         <result property="filePath" column="file_path"/>
         <result property="extension" column="extension"/>
         <result property="size" column="size"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="editedAt" column="edited_at"/>
     </resultMap>
 
     <select id="findByFileId" resultMap="ThumbnailResultMap">
@@ -18,8 +21,8 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="thumbnailId">
-        INSERT INTO tb_thumbnail (file_id, physical_name, file_path, extension, size)
-        VALUES (#{fileId}, #{physicalName}, #{filePath}, #{extension}, #{size})
+        INSERT INTO tb_thumbnail (file_id, original_name, physical_name, file_path, extension, size, created_at)
+        VALUES (#{fileId}, #{originalName}, #{physicalName}, #{filePath}, #{extension}, #{size}, NOW())
     </insert>
 
     <delete id="delete">

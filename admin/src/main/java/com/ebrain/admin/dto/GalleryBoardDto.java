@@ -7,14 +7,14 @@ import java.util.List;
 @Data
 public class GalleryBoardDto {
     private Long boardId;
-    private Integer categoryId;
+    private Long categoryId;
     private String categoryName;
     private String authorType;
-    private Long authorId;
+    private String authorId;
     private String authorName;
     private String title;
     private String content;
-    private Integer views;
+    private Long views;
     private Boolean isDeleted;
     private LocalDateTime createdAt;
     private LocalDateTime editedAt;

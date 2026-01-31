@@ -13,7 +13,8 @@
         <result property="filePath" column="file_path"/>
         <result property="extension" column="extension"/>
         <result property="size" column="size"/>
-        <result property="uploadDate" column="upload_date"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="editedAt" column="edited_at"/>
     </resultMap>
 
     <select id="findByBoard" resultMap="FileResultMap">
@@ -28,7 +29,7 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="fileId">
         INSERT INTO tb_file (board_type, board_id, original_name, physical_name,
-                             file_path, extension, size, upload_date)
+                             file_path, extension, size, created_at)
         VALUES (#{boardType}, #{boardId}, #{originalName}, #{physicalName},
                 #{filePath}, #{extension}, #{size}, NOW())
     </insert>

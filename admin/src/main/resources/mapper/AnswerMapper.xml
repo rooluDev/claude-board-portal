@@ -6,7 +6,8 @@
 
     <resultMap id="AnswerResultMap" type="AnswerDto">
         <id property="answerId" column="answer_id"/>
-        <result property="inquiryBoardId" column="inquiry_board_id"/>
+        <result property="boardId" column="board_id"/>
+        <result property="authorId" column="author_id"/>
         <result property="content" column="content"/>
         <result property="createdAt" column="created_at"/>
         <result property="editedAt" column="edited_at"/>
@@ -14,12 +15,12 @@
 
     <select id="findByInquiryBoardId" resultMap="AnswerResultMap">
         SELECT * FROM tb_answer
-        WHERE inquiry_board_id = #{inquiryBoardId}
+        WHERE board_id = #{inquiryBoardId}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="answerId">
-        INSERT INTO tb_answer (inquiry_board_id, content, created_at)
-        VALUES (#{inquiryBoardId}, #{content}, NOW())
+        INSERT INTO tb_answer (board_id, author_id, content, created_at)
+        VALUES (#{boardId}, #{authorId}, #{content}, NOW())
     </insert>
 
     <update id="update">

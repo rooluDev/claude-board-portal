@@ -19,7 +19,7 @@
             password,
             created_at
         FROM tb_admin
-        WHERE admin_name = #{adminName}
+        WHERE admin_id = #{adminId}
           AND password = #{password}
     </select>
 </mapper>

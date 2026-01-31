@@ -72,12 +72,12 @@ public class FreeBoardController {
      */
     @PostMapping
     public String create(@ModelAttribute FreeBoardDto dto,
-                        @RequestParam(value = "files", required = false) MultipartFile[] files,
+                        @RequestParam(value = "uploadFiles", required = false) MultipartFile[] files,
                         HttpSession session,
                         RedirectAttributes redirectAttributes) throws IOException {
 
         // 세션에서 관리자 ID 가져오기
-        Long adminId = (Long) session.getAttribute("ADMIN_SESSION_ID");
+        String adminId = (String) session.getAttribute("ADMIN_SESSION_ID");
         dto.setAuthorType("admin");
         dto.setAuthorId(adminId);
 
@@ -105,7 +105,7 @@ public class FreeBoardController {
     @PostMapping("/{id}")
     public String update(@PathVariable Long id,
                         @ModelAttribute FreeBoardDto dto,
-                        @RequestParam(value = "files", required = false) MultipartFile[] files,
+                        @RequestParam(value = "uploadFiles", required = false) MultipartFile[] files,
                         @RequestParam(value = "deleteFileIds", required = false) List<Long> deleteFileIds,
                         RedirectAttributes redirectAttributes) throws IOException {
 

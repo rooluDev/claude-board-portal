@@ -21,7 +21,7 @@
         SELECT
             ib.board_id,
             ib.author_id,
-            m.name AS author_name,
+            m.member_name AS author_name,
             ib.title,
             ib.views,
             ib.is_secret,
@@ -29,7 +29,7 @@
             CASE WHEN a.answer_id IS NOT NULL THEN TRUE ELSE FALSE END AS has_answer
         FROM tb_inquiry_board ib
         JOIN tb_member m ON ib.author_id = m.member_id
-        LEFT JOIN tb_answer a ON ib.board_id = a.inquiry_board_id
+        LEFT JOIN tb_answer a ON ib.board_id = a.board_id
         <where>
             <if test="startDate != null">
                 AND DATE(ib.created_at) &gt;= #{startDate}
@@ -79,7 +79,7 @@
         SELECT
             ib.board_id,
             ib.author_id,
-            m.name AS author_name,
+            m.member_name AS author_name,
             ib.title,
             ib.content,
             ib.views,

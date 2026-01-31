@@ -5,5 +5,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface AdminMapper {
-    AdminDto findByCredentials(String adminName, String password);
+    AdminDto findByCredentials(String adminId, String password);
 }

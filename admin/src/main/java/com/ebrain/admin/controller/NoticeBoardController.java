@@ -75,7 +75,7 @@ public class NoticeBoardController {
                         Model model) {
 
         // 세션에서 관리자 ID 가져오기
-        Long adminId = (Long) session.getAttribute("ADMIN_SESSION_ID");
+        String adminId = (String) session.getAttribute("ADMIN_SESSION_ID");
         dto.setAuthorId(adminId);
 
         // 고정 게시물 개수 검증

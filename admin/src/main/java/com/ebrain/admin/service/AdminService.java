@@ -14,7 +14,7 @@ public class AdminService {
     /**
      * 관리자 인증
      */
-    public AdminDto authenticate(String adminName, String hashedPassword) {
-        return adminMapper.findByCredentials(adminName, hashedPassword);
+    public AdminDto authenticate(String adminId, String hashedPassword) {
+        return adminMapper.findByCredentials(adminId, hashedPassword);
     }
 }

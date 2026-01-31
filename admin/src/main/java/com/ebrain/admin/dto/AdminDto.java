@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class AdminDto {
-    private Long adminId;
+    private String adminId;
     private String adminName;
     private String password;
     private LocalDateTime createdAt;

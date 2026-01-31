@@ -32,7 +32,7 @@
             fb.created_at,
             CASE
                 WHEN fb.author_type = 'admin' THEN a.admin_name
-                WHEN fb.author_type = 'member' THEN m.name
+                WHEN fb.author_type = 'member' THEN m.member_name
             END AS author_name
         FROM tb_free_board fb
         JOIN tb_category c ON fb.category_id = c.category_id
@@ -105,7 +105,7 @@
             fb.edited_at,
             CASE
                 WHEN fb.author_type = 'admin' THEN a.admin_name
-                WHEN fb.author_type = 'member' THEN m.name
+                WHEN fb.author_type = 'member' THEN m.member_name
             END AS author_name
         FROM tb_free_board fb
         JOIN tb_category c ON fb.category_id = c.category_id

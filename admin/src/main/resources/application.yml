@@ -12,9 +12,9 @@ spring:
 
   # 데이터소스 설정
   datasource:
-    url: jdbc:mysql://potal.cd2ig8m2ibfx.ap-northeast-2.rds.amazonaws.com:3306/portal?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
-    username: admin
-    password: your_db_password_here  # TODO: 실제 비밀번호로 변경
+    url: jdbc:mysql://localhost:3306/potal?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    username: root
+    password: asd@1252370
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # 파일 업로드 설정

@@ -24,7 +24,7 @@ public class CommentController {
                                      @RequestParam String content,
                                      HttpSession session) {
 
-        Long adminId = (Long) session.getAttribute("ADMIN_SESSION_ID");
+        String adminId = (String) session.getAttribute("ADMIN_SESSION_ID");
         String adminName = (String) session.getAttribute("ADMIN_NAME");
 
         CommentDto dto = new CommentDto();

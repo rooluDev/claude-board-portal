@@ -4,6 +4,7 @@ import com.ebrain.admin.dto.InquiryBoardDto;
 import com.ebrain.admin.dto.SearchCondition;
 import com.ebrain.admin.service.AnswerService;
 import com.ebrain.admin.service.InquiryBoardService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,9 +61,11 @@ public class InquiryBoardController {
     @PostMapping("/{id}/answers")
     @ResponseBody
     public Map<String, Object> createAnswer(@PathVariable Long id,
-                                           @RequestParam String content) {
+                                           @RequestParam String content,
+                                           HttpSession session) {
 
-        answerService.createAnswer(id, content);
+        String adminId = (String) session.getAttribute("ADMIN_SESSION_ID");
+        answerService.createAnswer(id, adminId, content);
 
         Map<String, Object> result = new HashMap<>();
         result.put("success", true);

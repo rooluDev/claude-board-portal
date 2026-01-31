@@ -29,7 +29,7 @@
             c.edited_at,
             CASE
                 WHEN c.author_type = 'admin' THEN a.admin_name
-                WHEN c.author_type = 'member' THEN m.name
+                WHEN c.author_type = 'member' THEN m.member_name
             END AS author_name
         FROM tb_comment c
         LEFT JOIN tb_admin a ON c.author_type = 'admin' AND c.author_id = a.admin_id

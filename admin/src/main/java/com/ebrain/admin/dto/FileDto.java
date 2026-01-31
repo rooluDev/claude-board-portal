@@ -13,5 +13,6 @@ public class FileDto {
     private String filePath;
     private String extension;
     private Long size;
-    private LocalDateTime uploadDate;
+    private LocalDateTime createdAt;
+    private LocalDateTime editedAt;
 }

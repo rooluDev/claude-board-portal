@@ -44,6 +44,7 @@ public class ThumbnailService {
         // DB에 썸네일 정보 저장
         ThumbnailDto dto = new ThumbnailDto();
         dto.setFileId(fileId);
+        dto.setOriginalName("thumbnail_" + imageFile.getOriginalFilename());
         dto.setPhysicalName(thumbnailName);
         dto.setFilePath("/thumbnail");
         dto.setExtension("jpg");

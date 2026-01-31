@@ -32,7 +32,7 @@
             gb.created_at,
             CASE
                 WHEN gb.author_type = 'admin' THEN a.admin_name
-                WHEN gb.author_type = 'member' THEN m.name
+                WHEN gb.author_type = 'member' THEN m.member_name
             END AS author_name
         FROM tb_gallery_board gb
         JOIN tb_category c ON gb.category_id = c.category_id
@@ -93,7 +93,7 @@
             c.category_name,
             CASE
                 WHEN gb.author_type = 'admin' THEN a.admin_name
-                WHEN gb.author_type = 'member' THEN m.name
+                WHEN gb.author_type = 'member' THEN m.member_name
             END AS author_name
         FROM tb_gallery_board gb
         JOIN tb_category c ON gb.category_id = c.category_id

@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class CategoryDto {
-    private Integer categoryId;
+    private Long categoryId;
     private String categoryName;
+    private String boardType;
 }

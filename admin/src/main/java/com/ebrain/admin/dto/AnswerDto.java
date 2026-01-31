@@ -6,7 +6,8 @@ import java.time.LocalDateTime;
 @Data
 public class AnswerDto {
     private Long answerId;
-    private Long inquiryBoardId;
+    private Long boardId;
+    private String authorId;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime editedAt;

@@ -31,7 +31,7 @@ public class AdminLoginController {
      * 로그인 처리
      */
     @PostMapping("/login")
-    public String login(@RequestParam String adminName,
+    public String login(@RequestParam String adminId,
                        @RequestParam String password,
                        HttpSession session) {
 
@@ -39,7 +39,7 @@ public class AdminLoginController {
         String hashedPassword = PasswordUtil.hashWithSHA256(password);
 
         // 인증
-        AdminDto admin = adminService.authenticate(adminName, hashedPassword);
+        AdminDto admin = adminService.authenticate(adminId, hashedPassword);
 
         if (admin == null) {
             throw new LoginFailException();
