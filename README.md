@@ -5,47 +5,49 @@
 ## 📝 프로젝트 개요
 
 **Claude Code만을 사용하여 제작한 게시판 포털 프로젝트**입니다.
-**Spring Boot (백엔드)** 와 **Vue.js (프론트엔드)** 를 활용하여 SPA 아키텍처 기반의 게시판을 구현한 학습용 프로젝트입니다.
-게시판의 주요 기능인 **글 작성, 수정, 삭제, 검색, 예외 처리, 검색조건 유지**를 구현하며,
-REST API를 활용한 클라이언트-서버 간 데이터 통신 및 상태 관리 방식을 학습하는 것을 목표로 했습니다.
+이 프로젝트는 **다양한 게시판을 통합적으로 관리할 수 있는 포털 사이트**를 구축하는 것을 목표로 합니다.
+
+- **게시판 종류**: 자유 게시판, 문의 게시판, 갤러리 게시판, 공지사항
+- **아키텍처 구성**:
+  - **사용자 페이지**: SPA(Single Page Application) 구조, **Spring Boot + Vue.js** 기반
+  - **관리자 페이지**: MPA(Multi Page Application) 구조, **Spring Boot + Thymeleaf** 기반
 
 ---
 
-## 📺 화면 구성
+## 📺 화면
+  + **메인 페이지 및 로그인**
+  
 
-### 🏠 메인 페이지 및 검색
+https://github.com/rooluDev/board-portal-project/assets/152958052/a7594704-185f-46af-a8ab-c3975048afe6
 
-https://github.com/user-attachments/assets/6526c227-8e6d-41f9-900c-cbe31d9d3287
+  + **게시물 검색**
 
----
 
-### ➕ 추가 페이지 및 추가
+https://github.com/rooluDev/board-portal-project/assets/152958052/d1e4bd23-f7bd-4f99-948e-d6230cfc6082
 
-https://github.com/user-attachments/assets/3491c2a1-60ff-474a-aaab-2e5f53b4283d
 
----
+  + **게시판 작성**
+  
 
-### 💬 보기 페이지 및 댓글 추가
+https://github.com/rooluDev/board-portal-project/assets/152958052/d6bdab38-46f8-4d8b-aa4b-09945b361388
 
-https://github.com/user-attachments/assets/c683a45f-80ae-43ca-aaf8-c7888b477846
 
----
+  + **게시판 수정**
 
-### 📂 첨부파일 저장
+https://github.com/rooluDev/board-portal-project/assets/152958052/a27fb564-752d-4474-ae85-1f373fdb7843
 
-https://github.com/user-attachments/assets/123733f9-b305-4751-8c94-865646290ad1
 
----
+  
+  + **댓글 등록**
 
-### ✏️ 수정 페이지 및 수정
 
-https://github.com/user-attachments/assets/e3e8b384-9e49-4bc5-b93c-b03284c524ab
+https://github.com/rooluDev/board-portal-project/assets/152958052/8b9cae92-1f60-4d93-84f9-7eb3df5dc3bf
 
----
 
-### 🗑️ 보기 페이지 및 삭제
+  + **파일 다운로드**
+  
 
-https://github.com/user-attachments/assets/4a09f6c4-36c4-47c5-9de0-17b64d89744e
+https://github.com/rooluDev/board-portal-project/assets/152958052/513d4a70-ab98-4436-8060-178c9e7edbed
 
 ---
 
@@ -94,10 +96,10 @@ https://github.com/user-attachments/assets/4a09f6c4-36c4-47c5-9de0-17b64d89744e
    - ERD 관계도 및 테이블 상세
    - 향후 개선 사항 로드맵
 
-**활용 방법:**
-- 새로운 기능 추가 시 PRD를 Claude Code에 제공하여 일관성 유지
-- 프로젝트 인수인계 시 빠른 이해 도구
-- 취업 포트폴리오용 기술 문서
+- [PRD.md 전체 코드](https://github.com/rooluDev/claude-board-portal/blob/main/PRD.md)
+- [admin-PRD.md 전체 코드](https://github.com/rooluDev/claude-board-portal/blob/main/admin/admin-prd.md)
+- [user-backend-PRD.md 전체 코드](https://github.com/rooluDev/claude-board-portal/blob/main/user/backend/user-backend-prd.md)
+- [user-admin-PRD.md 전체 코드](https://github.com/rooluDev/claude-board-portal/blob/main/user/frontend/user-frontend-prd.md)
 
 ### 2. md파일 관리
 
@@ -137,6 +139,7 @@ board-portal/
 │       └── user-frontend-prompt-phase4.md
 ```
 
+
 **CLAUDE.md 역할:**
 - **Project Overview**: 모듈의 목적, 기술 스택, 포트 번호
 - **Common Commands**: 빌드, 실행, 테스트 명령어
@@ -144,25 +147,6 @@ board-portal/
 - **Key Implementation Details**: 인증 플로우, 파일 저장 패턴, DB 접근 권한
 - **API Patterns**: 엔드포인트 네이밍 규칙, 응답 형식
 - **Important Notes**: 주의사항, 보안 정책, 제약 조건
-
-**예시: admin/CLAUDE.md 핵심 내용**
-```markdown
-## Project Overview
-- Framework: Spring Boot 3.2.3 + Thymeleaf (MPA)
-- Port: 8082
-- Authentication: HttpSession-based (30-minute timeout)
-- ORM: MyBatis 3.0.3 (XML mapping)
-
-## Architecture
-- Layered: Controller → Service → Mapper → DB
-- Polymorphic relationships: (board_type, board_id)
-- Delete strategies: Hard delete (notice) vs Soft delete (free/gallery)
-```
-
-**활용 시나리오:**
-1. **새 세션 시작 시**: "이 모듈의 CLAUDE.md를 읽고 새 기능을 추가해줘"
-2. **디버깅 시**: "CLAUDE.md의 아키텍처를 참고하여 이 버그를 수정해줘"
-3. **코드 리뷰 시**: "CLAUDE.md의 규칙을 따르는지 확인해줘"
 
 ### 3. 단계별 프롬프트 작성
 
@@ -207,81 +191,6 @@ board-portal/
      - 작성자 확인 로직
      - 최종 통합 테스트
    - 완료 조건: 모든 게시판 통합 동작 확인
-
-**Phase별 Prompt 파일 구조:**
-
-```markdown
-# Claude Code Prompt - Admin Page (Phase 1: 프로젝트 설정 및 인증)
-
-## 📋 Phase 1 목표
-1. Spring Boot 프로젝트 초기 설정
-2. Gradle 의존성 구성
-3. application.yml 설정
-...
-
-## 1. build.gradle
-```gradle
-plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.2.3'
-    ...
-}
-```
-
-## 2. DTO 작성
-**AdminDto.java**
-```java
-@Data
-public class AdminDto {
-    private Long adminId;
-    ...
-}
-```
-
-## 3. Phase 1 완료 체크리스트
-- [ ] Spring Boot 프로젝트 생성
-- [ ] 로그인 페이지 구현
-- [ ] 애플리케이션 실행 테스트
-```
-
-**Claude Code 활용 방법:**
-
-**Step 1: Phase별 순차 실행**
-```bash
-# Phase 1 프롬프트를 Claude Code에 붙여넣기
-"admin-prompt-phase1.md 파일의 내용대로 프로젝트를 설정해줘"
-```
-
-**Step 2: 테스트 및 검증**
-```bash
-# Phase 완료 후 반드시 테스트
-./gradlew bootRun
-curl -X POST http://localhost:8082/login -d "adminName=admin&password=1234"
-```
-
-**Step 3: 다음 Phase로 진행**
-```bash
-# Phase 1 완료 확인 후 Phase 2 시작
-"admin-prompt-phase2.md 파일의 내용대로 공지사항 게시판을 구현해줘"
-```
-
-**실제 개발 사례:**
-
-| Phase | 작업 내용 | Claude Code 프롬프트 예시 | 소요 시간 |
-|-------|----------|------------------------|---------|
-| Phase 1 | 프로젝트 설정 + 로그인 | "admin-prompt-phase1.md를 읽고 구현해줘" | 1-2시간 |
-| Phase 2 | 공지사항 게시판 CRUD | "admin-prompt-phase2.md를 참고하여 구현해줘" | 2-3시간 |
-| Phase 3 | 자유/갤러리 게시판 + 파일 | "파일 업로드 기능을 admin-prompt-phase3.md대로 추가해줘" | 3-4시간 |
-| Phase 4 | 문의 게시판 + 답변 | "비밀글 기능을 admin-prompt-phase4.md대로 구현해줘" | 2-3시간 |
-
-**핵심 장점:**
-
-1. **컨텍스트 관리**: 각 Phase는 독립적인 프롬프트로 Claude Code에게 명확한 작업 범위 제공
-2. **디버깅 용이**: 문제 발생 시 해당 Phase만 재실행
-3. **진행 상황 추적**: 체크리스트로 완료 여부 명확히 파악
-4. **재사용성**: 비슷한 프로젝트 시작 시 Phase 프롬프트 재활용 가능
-5. **학습 효과**: 단계별로 기능이 추가되며 점진적으로 복잡도 증가
-
 
 ### 4. AI와의 협업 패턴
 
